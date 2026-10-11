@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How to get from the arrivals hall to the Pick Up zone at Melbourne Airport, in English and Chinese. 墨尔本机场接机指引（中英文）。">
+<title>Melbourne Airport Arrivals Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: one reading column, like a wayfinding leaflet. A terminal picker answers "where do I go",
+   then the seven marked-up pictures run in walking order. */
+:root {
+  --bg: #f3f5f7;
+  --surface: #ffffff;
+  --ink: #14202b;
+  --muted: #52616e;
+  --line: #d5dce2;
+  --sign: #14202b;      /* airport sign plate */
+  --sign-ink: #ffffff;
+  --way: #ffd60a;       /* floor-line yellow */
+  --way-ink: #14202b;
+  --arrow: #c8102e;     /* matches the arrows on the pictures */
+  --link: #0b5cab;
+  --display: "Barlow Semi Condensed", "Arial Narrow", "Helvetica Neue", Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f161c; --surface: #18222b; --ink: #eef2f5; --muted: #a3b1bd; --line: #2c3a46;
+    --sign: #eef2f5; --sign-ink: #0f161c; --way: #ffd60a; --way-ink: #14202b;
+    --arrow: #ff5a6e; --link: #7fbcff; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f161c; --surface: #18222b; --ink: #eef2f5; --muted: #a3b1bd; --line: #2c3a46;
+  --sign: #eef2f5; --sign-ink: #0f161c; --way: #ffd60a; --way-ink: #14202b;
+  --arrow: #ff5a6e; --link: #7fbcff; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; }
+img { max-width: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 17px; line-height: 1.55; }
+.wrap { max-width: 760px; margin: 0 auto; padding-inline: 20px; padding-block: 28px 64px; display: flex; flex-direction: column; gap: 44px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.1rem, 7vw, 3.2rem); font-weight: 700; letter-spacing: -0.01em; }
+h2 { font-size: 1.75rem; font-weight: 700; }
+h3 { font-size: 1.3rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--link); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--way); outline-offset: 2px; }
+section { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.eyebrow { font-family: var(--display); font-weight: 600; text-transform: uppercase; letter-spacing: 0.09em; font-size: 0.9rem; color: var(--muted); }
+.lead { font-size: 1.15rem; max-width: 62ch; }
+.muted { color: var(--muted); }
+.small { font-size: 0.92rem; }
+
+header { display: flex; flex-direction: column; gap: 14px; }
+.plate { align-self: flex-start; background: var(--sign); color: var(--sign-ink); font-family: var(--display); font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; font-size: 0.9rem; padding: 6px 12px; border-bottom: 5px solid var(--way); }
+
+/* terminal picker */
+.picker { display: flex; flex-wrap: wrap; gap: 8px; }
+.picker button { font: inherit; font-family: var(--display); font-weight: 600; font-size: 1.05rem; cursor: pointer; background: var(--surface); color: var(--ink); border: 2px solid var(--line); border-radius: 6px; padding: 10px 14px; text-align: left; line-height: 1.2; }
+.picker button span { display: block; font-family: var(--body); font-weight: 400; font-size: 0.82rem; color: var(--muted); }
+.picker button[aria-pressed="true"] { background: var(--sign); color: var(--sign-ink); border-color: var(--sign); }
+.picker button[aria-pressed="true"] span { color: var(--sign-ink); opacity: 0.8; }
+.answer { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 6px 18px; }
+.answer dl { margin: 0; }
+.answer .row { display: grid; grid-template-columns: 9.5rem 1fr; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.answer .row:last-child { border-bottom: 0; }
+.answer dt { font-family: var(--display); font-weight: 600; font-size: 1.05rem; }
+.answer dd { margin: 0; min-width: 0; }
+.answer .row.main dd { font-weight: 600; }
+@media (max-width: 480px) { .answer .row { grid-template-columns: 1fr; gap: 2px; } }
+
+/* route strip */
+.strip { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 0; font-family: var(--display); font-weight: 600; font-size: 1.02rem; }
+.strip li { background: var(--way); color: var(--way-ink); padding: 6px 22px 6px 14px; clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 10px 50%); margin-right: -4px; }
+.strip li:first-child { clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%); }
+
+/* steps */
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 32px; }
+.step { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.step-head { display: flex; gap: 12px; align-items: flex-start; }
+.num { flex: none; width: 2.2rem; height: 2.2rem; border-radius: 50%; background: var(--arrow); color: #ffffff; font-family: var(--display); font-weight: 700; font-size: 1.25rem; display: grid; place-items: center; }
+.step-head div { min-width: 0; display: flex; flex-direction: column; gap: 2px; padding-top: 2px; }
+.step img { display: block; width: 100%; height: auto; aspect-ratio: 1182 / 665; border-radius: 6px; border: 1px solid var(--line); background: var(--line); }
+
+.note { border-left: 5px solid var(--way); background: var(--surface); padding: 12px 16px; }
+ul.plain { margin: 0; padding-left: 1.2rem; display: flex; flex-direction: column; gap: 8px; }
+.contact { font-family: var(--display); font-weight: 600; font-size: 1.2rem; user-select: all; white-space: nowrap; }
+.table-scroll { overflow-x: auto; }
+footer { border-top: 1px solid var(--line); padding-top: 18px; display: flex; flex-direction: column; gap: 10px; }
+
+/* language toggle */
+html[data-lang="en"] .zh, html[data-lang="zh"] .en { display: none !important; }
+html[data-lang="zh"] { --display: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Hiragino Sans GB", sans-serif; --body: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Hiragino Sans GB", sans-serif; }
+html[data-lang="zh"] .eyebrow, html[data-lang="zh"] .plate { letter-spacing: 0.04em; }
+html[data-lang="zh"] body { line-height: 1.7; }
+.topbar { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.picker button strong { display: block; font-weight: 600; }
+.lang { display: inline-flex; border: 2px solid var(--sign); border-radius: 6px; overflow: hidden; flex: none; }
+.lang button { font: inherit; font-weight: 600; font-size: 0.95rem; cursor: pointer; border: 0; background: var(--surface); color: var(--ink); padding: 7px 14px; }
+.lang button[aria-pressed="true"] { background: var(--sign); color: var(--sign-ink); }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<div class="topbar">
+<div class="plate"><span class="en" lang="en">Arrivals guide &middot; in effect from 6 October 2026</span><span class="zh" lang="zh-Hans">到达指南 &middot; 自 2026 年 10 月 6 日起生效</span></div>
+<div class="lang" role="group" aria-label="Language / 语言"><button type="button" id="lang-en" data-lang="en" aria-pressed="true">English</button><button type="button" id="lang-zh" data-lang="zh" aria-pressed="false" lang="zh-Hans">中文</button></div>
+</div>
+<h1><span class="en" lang="en">Getting picked up at Melbourne Airport</span><span class="zh" lang="zh-Hans">墨尔本机场接机指引</span></h1>
+<p class="lead"><span class="en" lang="en">Private cars can no longer collect you at the kerb outside Terminals 1, 2 and 3. If someone is picking you up, walk to the free Pick Up zone on Level 2 of the T123 Transport Hub, about 285 metres from the terminal. Taxis, Uber and SkyBus still leave from the ground-level forecourt.</span><span class="zh" lang="zh-Hans">私家车已不能在 1、2、3 号航站楼门外的路边接人。如果有人来接您，请步行前往 T123 交通枢纽（T123 Transport Hub）2 层的免费接客区（Pick Up），距航站楼约 285 米。出租车、Uber 和 SkyBus 机场大巴仍在地面层前广场上车。</span></p>
+</header>
+
+<section aria-labelledby="where">
+<p class="eyebrow"><span class="en" lang="en">Start here</span><span class="zh" lang="zh-Hans">从这里开始</span></p>
+<h2 id="where"><span class="en" lang="en">Which terminal are you arriving at?</span><span class="zh" lang="zh-Hans">您抵达哪个航站楼？</span></h2>
+<div class="picker" role="group" aria-label="Arrival terminal / 抵达航站楼">
+<button type="button" id="pick-t1" data-t="t1" aria-pressed="false"><strong class="en" lang="en">Terminal 1</strong><strong class="zh" lang="zh-Hans">1 号航站楼</strong><span class="en" lang="en">Qantas domestic</span><span class="zh" lang="zh-Hans">澳航国内航班</span></button>
+<button type="button" id="pick-t2" data-t="t2" aria-pressed="true"><strong class="en" lang="en">Terminal 2</strong><strong class="zh" lang="zh-Hans">2 号航站楼</strong><span class="en" lang="en">All international</span><span class="zh" lang="zh-Hans">所有国际航班</span></button>
+<button type="button" id="pick-t3" data-t="t3" aria-pressed="false"><strong class="en" lang="en">Terminal 3</strong><strong class="zh" lang="zh-Hans">3 号航站楼</strong><span class="en" lang="en">Virgin Australia</span><span class="zh" lang="zh-Hans">维珍澳航</span></button>
+<button type="button" id="pick-t4" data-t="t4" aria-pressed="false"><strong class="en" lang="en">Terminal 4</strong><strong class="zh" lang="zh-Hans">4 号航站楼</strong><span class="en" lang="en">Jetstar, Rex</span><span class="zh" lang="zh-Hans">捷星、Rex</span></button>
+</div>
+<div class="answer" aria-live="polite"><dl>
+<div class="row main"><dt><span class="en" lang="en">Private car</span><span class="zh" lang="zh-Hans">私家车接机</span></dt><dd id="a-car"></dd></div>
+<div class="row"><dt><span class="en" lang="en">Taxi</span><span class="zh" lang="zh-Hans">出租车</span></dt><dd id="a-taxi"></dd></div>
+<div class="row"><dt>Uber</dt><dd id="a-uber"></dd></div>
+<div class="row"><dt><span class="en" lang="en">SkyBus</span><span class="zh" lang="zh-Hans">SkyBus 机场大巴</span></dt><dd id="a-sky"></dd></div>
+</dl></div>
+<p class="small muted"><span class="en" lang="en">All four terminals are in one connected building, so you can walk between them indoors.</span><span class="zh" lang="zh-Hans">四个航站楼同在一座相连的建筑内，可在室内步行往来。</span></p>
+</section>
+
+<section aria-labelledby="walk">
+<p class="eyebrow"><span class="en" lang="en">Terminals 1, 2 and 3</span><span class="zh" lang="zh-Hans">1、2、3 号航站楼</span></p>
+<h2 id="walk"><span class="en" lang="en">The walk to the Pick Up zone</span><span class="zh" lang="zh-Hans">步行前往接客区</span></h2>
+<p><span class="en" lang="en">Allow 5 to 10 minutes with luggage (our estimate). There are rest stops every 60 metres. Before you leave the arrivals hall, message your driver that you are through.</span><span class="zh" lang="zh-Hans">携带行李约需 5 至 10 分钟（我方估算）。沿途每 60 米设有休息点。离开到达大厅前，请先发消息告诉司机您已经出来了。</span></p>
+<ol class="strip" aria-label="Route overview / 路线概览"><li><span class="en" lang="en">Arrivals hall</span><span class="zh" lang="zh-Hans">到达大厅</span></li><li><span class="en" lang="en">Crossing</span><span class="zh" lang="zh-Hans">人行横道</span></li><li><span class="en" lang="en">T123 hub</span><span class="zh" lang="zh-Hans">T123 枢纽</span></li><li><span class="en" lang="en">Lift to Level 2</span><span class="zh" lang="zh-Hans">乘电梯到 2 层</span></li><li><span class="en" lang="en">Walkway</span><span class="zh" lang="zh-Hans">步行通道</span></li><li><span class="en" lang="en">Your zone</span><span class="zh" lang="zh-Hans">您的分区</span></li></ol>
+<ol class="steps">
+<li class="step">
+<div class="step-head"><span class="num">1</span><div><h3><span class="en" lang="en">Cross the forecourt</span><span class="zh" lang="zh-Hans">穿过前广场</span></h3><p><span class="en" lang="en">Leave the arrivals hall at ground level and use the pedestrian crossings towards the building signed &ldquo;T123 Transport Hub&rdquo;. Do not wait at the kerb: private cars cannot stop there.</span><span class="zh" lang="zh-Hans">从地面层走出到达大厅，沿人行横道走向标有“T123 Transport Hub”的建筑。请勿在路边等候：私家车不能在此停靠。</span></p></div></div>
+<img class="en" src="img/1-crossing-en.jpg" width="1182" height="665" alt="Pedestrian crossing outside the terminal with a red arrow pointing across to the T123 Transport Hub">
+<img class="zh" src="img/1-crossing-zh.jpg" width="1182" height="665" alt="航站楼外的人行横道，红色箭头指向对面的 T123 交通枢纽" loading="lazy">
+</li>
+<li class="step">
+<div class="step-head"><span class="num">2</span><div><h3><span class="en" lang="en">Enter the T123 Transport Hub</span><span class="zh" lang="zh-Hans">进入 T123 交通枢纽</span></h3><p><span class="en" lang="en">Walk in under the large &ldquo;T123 Transport Hub&rdquo; sign.</span><span class="zh" lang="zh-Hans">从“T123 Transport Hub”大型标牌下方进入。</span></p></div></div>
+<img class="en" src="img/2-entrance-en.jpg" width="1182" height="665" alt="Hub entrance with a red arrow pointing in under the T123 Transport Hub sign" loading="lazy">
+<img class="zh" src="img/2-entrance-zh.jpg" width="1182" height="665" alt="枢纽入口，红色箭头指向 T123 Transport Hub 标牌下方" loading="lazy">
+</li>
+<li class="step">
+<div class="step-head"><span class="num">3</span><div><h3><span class="en" lang="en">Take a lift to Level 2</span><span class="zh" lang="zh-Hans">乘电梯到 2 层</span></h3><p><span class="en" lang="en">The lifts are just inside. Press 2.</span><span class="zh" lang="zh-Hans">电梯就在入口内侧。按“2”。</span></p></div></div>
+<img class="en" src="img/3-lifts-en.jpg" width="1182" height="665" alt="Lift lobby inside the hub with a red arrow pointing to the lift doors" loading="lazy">
+<img class="zh" src="img/3-lifts-zh.jpg" width="1182" height="665" alt="枢纽内的电梯厅，红色箭头指向电梯门" loading="lazy">
+</li>
+<li class="step">
+<div class="step-head"><span class="num">4</span><div><h3><span class="en" lang="en">Leave the lift and turn left</span><span class="zh" lang="zh-Hans">出电梯后左转</span></h3><p><span class="en" lang="en">Follow the yellow line on the floor.</span><span class="zh" lang="zh-Hans">沿地面黄线前行。</span></p></div></div>
+<img class="en" src="img/4-turn-left-en.jpg" width="1182" height="665" alt="Level 2 lift lobby with a red arrow following the yellow floor line and turning left" loading="lazy">
+<img class="zh" src="img/4-turn-left-zh.jpg" width="1182" height="665" alt="2 层电梯厅，红色箭头沿地面黄线左转" loading="lazy">
+</li>
+<li class="step">
+<div class="step-head"><span class="num">5</span><div><h3><span class="en" lang="en">Turn right at the green sign</span><span class="zh" lang="zh-Hans">在绿色标牌处右转</span></h3><p><span class="en" lang="en">The green sign reads &ldquo;T123 Pick-up&rdquo;, and the yellow floor arrow bends right here.</span><span class="zh" lang="zh-Hans">绿色标牌上写着“T123 Pick-up”，地面的黄色箭头在此向右转。</span></p></div></div>
+<img class="en" src="img/5-turn-right-en.jpg" width="1182" height="665" alt="Open concourse with a red arrow turning right towards a green T123 Pick-up sign" loading="lazy">
+<img class="zh" src="img/5-turn-right-zh.jpg" width="1182" height="665" alt="开阔的通道，红色箭头向右转向绿色的 T123 Pick-up 标牌" loading="lazy">
+</li>
+<li class="step">
+<div class="step-head"><span class="num">6</span><div><h3><span class="en" lang="en">Go straight along the walkway</span><span class="zh" lang="zh-Hans">沿步行通道直行</span></h3><p><span class="en" lang="en">Keep following the overhead &ldquo;T123 Pick-up&rdquo; signs to the waiting area.</span><span class="zh" lang="zh-Hans">继续跟随头顶的“T123 Pick-up”标牌，直到等候区。</span></p></div></div>
+<img class="en" src="img/6-straight-en.jpg" width="1182" height="665" alt="Walkway with a red arrow pointing straight ahead under a T123 Pick-up sign" loading="lazy">
+<img class="zh" src="img/6-straight-zh.jpg" width="1182" height="665" alt="步行通道，红色箭头指向前方的 T123 Pick-up 标牌" loading="lazy">
+</li>
+<li class="step">
+<div class="step-head"><span class="num">7</span><div><h3><span class="en" lang="en">Walk out to your driver&rsquo;s zone</span><span class="zh" lang="zh-Hans">走到司机所在的分区</span></h3><p><span class="en" lang="en">The Pick Up area is divided into numbered zones marked on the pillars. Ask your driver which zone they are in, then walk out to it. Cars can stop for 5 minutes only.</span><span class="zh" lang="zh-Hans">接客区按编号分区，编号标在柱子上。先问清司机在几号区，再走过去。车辆最多停留 5 分钟。</span></p></div></div>
+<img class="en" src="img/7-zones-en.jpg" width="1182" height="665" alt="Pick Up area with numbered zone pillars and a red arrow pointing out to the zones" loading="lazy">
+<img class="zh" src="img/7-zones-zh.jpg" width="1182" height="665" alt="接客区内带编号的柱子，红色箭头指向各分区" loading="lazy">
+</li>
+</ol>
+<p class="small muted"><span class="en" lang="en">The pictures are computer-generated stills from Melbourne Airport&rsquo;s official <a href="https://www.youtube.com/watch?v=gWbqixtnvJE">walking route video</a>, with arrows and labels added. Images &copy; Melbourne Airport.</span><span class="zh" lang="zh-Hans">图片为墨尔本机场官方<a href="https://www.youtube.com/watch?v=gWbqixtnvJE">步行路线视频</a>中的电脑合成画面，箭头和标注为后加。图片版权归墨尔本机场所有。机场的指示牌均为英文，请对照图中的英文标牌。</span></p>
+</section>
+
+<section aria-labelledby="t4">
+<p class="eyebrow"><span class="en" lang="en">Jetstar and Rex</span><span class="zh" lang="zh-Hans">捷星与 Rex</span></p>
+<h2 id="t4"><span class="en" lang="en">Arriving at Terminal 4</span><span class="zh" lang="zh-Hans">抵达 4 号航站楼</span></h2>
+<p><span class="en" lang="en">Nothing has changed at Terminal 4. Private cars pick up on Level 1 of the T4 Transport Hub, the car park directly beside the terminal. Taxis and Uber pick up on its ground level.</span><span class="zh" lang="zh-Hans">4 号航站楼没有变化。私家车在 T4 交通枢纽（T4 Transport Hub）1 层接人，即紧邻航站楼的停车楼。出租车和 Uber 在其地面层上车。</span></p>
+<p class="note"><span class="en" lang="en">Virgin Australia passengers can also choose to be collected here: the airport notes the T4 Pick Up zone can be easier for Terminal 3 arrivals. Agree the meeting point with your driver before you land.</span><span class="zh" lang="zh-Hans">维珍澳航的旅客也可以选择在这里上车：机场表示，从 3 号航站楼到达的旅客使用 T4 接客区可能更方便。请在落地前与司机约好碰面地点。</span></p>
+</section>
+
+<section aria-labelledby="other">
+<p class="eyebrow"><span class="en" lang="en">Not being collected?</span><span class="zh" lang="zh-Hans">没有人接机？</span></p>
+<h2 id="other"><span class="en" lang="en">Taxi, Uber, rideshare and SkyBus</span><span class="zh" lang="zh-Hans">出租车、Uber、网约车和 SkyBus</span></h2>
+<p><span class="en" lang="en">These have not moved. They still pick up at ground level, close to the arrivals doors.</span><span class="zh" lang="zh-Hans">这些上车点没有变动，仍在地面层，靠近到达大厅出口。</span></p>
+<ul class="plain">
+<li><span class="en" lang="en"><strong>Taxi:</strong> use only the signed taxi ranks at Terminals 1, 2 and 4. The city is about a 30-minute ride.</span><span class="zh" lang="zh-Hans"><strong>出租车：</strong>只使用 1、2、4 号航站楼有标识的出租车候车站。到市区车程约 30 分钟。</span></li>
+<li><span class="en" lang="en"><strong>Uber:</strong> ranks are at Terminal 1 (turn left out of the terminal), Terminal 2 (kerb in front of the terminal) and the ground floor of the Terminal 4 car park.</span><span class="zh" lang="zh-Hans"><strong>Uber：</strong>上车点位于 1 号航站楼（出航站楼左转）、2 号航站楼（航站楼前路边）以及 4 号航站楼停车场地面层。</span></li>
+<li><span class="en" lang="en"><strong>DiDi, Shebah and other rideshare:</strong> Lane 3 of the forecourt for Terminals 1, 2 and 3; Level 1 of the Terminal 4 car park for Terminal 4.</span><span class="zh" lang="zh-Hans"><strong>DiDi、Shebah 及其他网约车：</strong>1、2、3 号航站楼在前广场 3 号车道（Lane 3）；4 号航站楼在 4 号航站楼停车场 1 层。</span></li>
+<li><span class="en" lang="en"><strong>SkyBus to the city (Southern Cross Station):</strong> stops outside Terminals 1, 3 and 4, running 4am to 1am, every 10 to 15 minutes.</span><span class="zh" lang="zh-Hans"><strong>SkyBus 前往市区（南十字星车站 Southern Cross Station）：</strong>站点在 1、3、4 号航站楼门外，运营时间为凌晨 4 点至次日凌晨 1 点，每 10 至 15 分钟一班。</span></li>
+<li><span class="en" lang="en"><strong>Pre-booked chauffeur:</strong> your driver meets you at the chauffeur meeting point inside the terminal.</span><span class="zh" lang="zh-Hans"><strong>预约专车：</strong>司机会在航站楼内的专车接客点（Chauffeur meeting point）等您。</span></li>
+</ul>
+<p class="note"><span class="en" lang="en">Do not accept a ride from anyone who approaches you inside or outside the terminal. Check the number plate and driver photo in your app before getting in.</span><span class="zh" lang="zh-Hans">不要搭乘在航站楼内外主动上前揽客的车辆。上车前请在手机应用中核对车牌和司机照片。</span></p>
+</section>
+
+<section aria-labelledby="help">
+<p class="eyebrow"><span class="en" lang="en">Mobility</span><span class="zh" lang="zh-Hans">行动不便</span></p>
+<h2 id="help"><span class="en" lang="en">If you need help with the walk</span><span class="zh" lang="zh-Hans">如果步行有困难</span></h2>
+<p><span class="en" lang="en">Melbourne Airport Assist is a free buggy and powered-wheelchair service between the baggage halls and the Pick Up zone. It runs 3am to 1am, every day.</span><span class="zh" lang="zh-Hans">Melbourne Airport Assist 是免费的电瓶车和电动轮椅服务，往返于行李提取大厅和接客区之间，每天凌晨 3 点至次日凌晨 1 点运营。</span></p>
+<ul class="plain">
+<li><span class="en" lang="en">Book ahead with 24 hours&rsquo; notice: <a href="https://form.jotform.com/travellersaid/melbourne-airport-assist-booking">Melbourne Airport Assist booking form</a></span><span class="zh" lang="zh-Hans">请提前 24 小时预约：<a href="https://form.jotform.com/travellersaid/melbourne-airport-assist-booking">Melbourne Airport Assist 预约表</a>（英文）</span></li>
+<li><span class="en" lang="en">On the day, call <span class="contact">0492 868 960</span>, or ask staff at any of the five mobility hubs in the airport</span><span class="zh" lang="zh-Hans">当天请致电 <span class="contact">0492 868 960</span>，或向机场内五个无障碍服务点（Mobility Hub）的工作人员求助</span></li>
+<li><span class="en" lang="en">General airport enquiries: <span class="contact">+61 3 9297 1600</span></span><span class="zh" lang="zh-Hans">机场总机：<span class="contact">+61 3 9297 1600</span></span></li>
+</ul>
+</section>
+
+<section aria-labelledby="driver">
+<p class="eyebrow"><span class="en" lang="en">Share with your driver</span><span class="zh" lang="zh-Hans">请转给司机</span></p>
+<h2 id="driver"><span class="en" lang="en">For the person collecting you</span><span class="zh" lang="zh-Hans">给接机人的提示</span></h2>
+<ul class="plain">
+<li><span class="en" lang="en">Take Exit 19 (Naarm Way) from the Tullamarine Freeway and follow the signs to T123 Pick Up (Level 2) or T4 Pick Up (Level 1).</span><span class="zh" lang="zh-Hans">从 Tullamarine Freeway 高速公路 19 号出口（Exit 19, Naarm Way）驶出，按路牌前往 T123 Pick Up（2 层）或 T4 Pick Up（1 层）。</span></li>
+<li><span class="en" lang="en">The Pick Up zone is free, with a 5-minute limit. Enter only once your passenger is standing there, and tell them your zone number.</span><span class="zh" lang="zh-Hans">接客区免费，限停 5 分钟。请等乘客到位后再驶入，并把分区编号告诉对方。</span></li>
+<li><span class="en" lang="en">Arriving early? The wait zone on Mercer Drive is free for 60 minutes and a 5-minute drive from the Pick Up zone.</span><span class="zh" lang="zh-Hans">到早了？Mercer Drive 的等候区（Wait Zone）前 60 分钟免费，开到接客区约 5 分钟。</span></li>
+<li><span class="en" lang="en">To meet a passenger inside the terminal, park in the T123 car park. The first 15 minutes are free.</span><span class="zh" lang="zh-Hans">如需进航站楼接人，请停在 T123 停车场，前 15 分钟免费。</span></li>
+<li><span class="en" lang="en">Vehicles over 2.2 metres high cannot enter the T123 zone (2.5 metres at T4). Use Exit 20, Terminal Drive, then Centre Road to the ground-level bay behind the T123 Transport Hub.</span><span class="zh" lang="zh-Hans">车高超过 2.2 米的车辆不能进入 T123 接客区（T4 为 2.5 米）。请走 20 号出口（Exit 20），经 Terminal Drive 转 Centre Road，到 T123 交通枢纽后方的地面层停靠点。</span></li>
+</ul>
+</section>
+
+<footer class="small muted">
+<p><span class="en" lang="en">Details are from Melbourne Airport&rsquo;s website, checked 11 October 2026. Arrangements may change as the Terminal 2 expansion proceeds, so follow the signs on the day.</span><span class="zh" lang="zh-Hans">以上信息来自墨尔本机场官网，核对日期为 2026 年 10 月 11 日。随着 2 号航站楼扩建，安排可能调整，请以当天现场指示牌为准。</span></p>
+<p><span class="en" lang="en">Sources:</span><span class="zh" lang="zh-Hans">来源（英文）：</span> <a href="https://www.melbourneairport.com.au/changes-coming-in-spring-2026"><span class="en" lang="en">Changes from 6 October</span><span class="zh" lang="zh-Hans">10 月 6 日起的变化</span></a> &middot; <a href="https://www.melbourneairport.com.au/pick-up-zones"><span class="en" lang="en">Pick Up zones</span><span class="zh" lang="zh-Hans">接客区</span></a> &middot; <a href="https://www.melbourneairport.com.au/community/pick-up-and-drop-off-faqs"><span class="en" lang="en">Pick Up and Drop Off FAQs</span><span class="zh" lang="zh-Hans">接送常见问题</span></a> &middot; <a href="https://www.melbourneairport.com.au/taxis"><span class="en" lang="en">Taxis</span><span class="zh" lang="zh-Hans">出租车</span></a> &middot; <a href="https://www.melbourneairport.com.au/rideshare"><span class="en" lang="en">Rideshare</span><span class="zh" lang="zh-Hans">网约车</span></a> &middot; <a href="https://www.melbourneairport.com.au/bus-services"><span class="en" lang="en">Bus services</span><span class="zh" lang="zh-Hans">巴士服务</span></a> &middot; <a href="https://www.melbourneairport.com.au/map"><span class="en" lang="en">Interactive airport map</span><span class="zh" lang="zh-Hans">机场互动地图</span></a></p>
+</footer>
+</div>
+<script>
+(function () {
+  var hub = { en: 'Level 2, T123 Transport Hub. Follow the seven steps below.', zh: 'T123 交通枢纽 2 层。请按下方七个步骤前往。' };
+  var rank = { en: 'Rank on the ground-level forecourt.', zh: '地面层前广场的出租车候车站。' };
+  var data = {
+    t1: { car: hub, taxi: rank, uber: { en: 'Turn left out of the terminal.', zh: '走出航站楼后左转。' }, sky: { en: 'Stop outside Terminal 1.', zh: '1 号航站楼门外的站点。' } },
+    t2: { car: hub, taxi: rank, uber: { en: 'Kerb directly in front of the terminal.', zh: '航站楼正前方路边。' }, sky: { en: 'Walk to the Terminal 1 or Terminal 3 stop.', zh: '步行至 1 号或 3 号航站楼的站点。' } },
+    t3: { car: { en: hub.en + ' The Terminal 4 Pick Up zone is an alternative.', zh: hub.zh + '也可以选择 4 号航站楼的接客区。' }, taxi: { en: 'Rank on the ground-level forecourt, at Terminal 1 or 2.', zh: '地面层前广场的出租车候车站（位于 1 号或 2 号航站楼）。' }, uber: { en: 'Ground floor of the Terminal 4 car park.', zh: '4 号航站楼停车场地面层。' }, sky: { en: 'Stop outside Terminal 3.', zh: '3 号航站楼门外的站点。' } },
+    t4: { car: { en: 'Level 1, T4 Transport Hub, the car park beside the terminal. The seven steps below do not apply.', zh: 'T4 交通枢纽 1 层，即航站楼旁的停车楼。下方七个步骤不适用。' }, taxi: { en: 'Ground level of the T4 Transport Hub.', zh: 'T4 交通枢纽地面层。' }, uber: { en: 'Ground floor of the Terminal 4 car park.', zh: '4 号航站楼停车场地面层。' }, sky: { en: 'Stop outside Terminal 4.', zh: '4 号航站楼门外的站点。' } }
+  };
+  var titles = { en: 'Melbourne Airport Arrivals Guide', zh: '墨尔本机场接机指引' };
+  var root = document.documentElement, lang = 'en', term = 't2';
+  var tButtons = document.querySelectorAll('.picker button'), lButtons = document.querySelectorAll('.lang button');
+  function render() {
+    var d = data[term];
+    ['car', 'taxi', 'uber', 'sky'].forEach(function (k) { document.getElementById('a-' + k).textContent = d[k][lang]; });
+    tButtons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.t === term ? 'true' : 'false'); });
+    lButtons.forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
+    root.setAttribute('data-lang', lang); root.setAttribute('lang', lang === 'zh' ? 'zh-Hans' : 'en');
+    document.title = titles[lang];
+  }
+  try { var saved = localStorage.getItem('mel-guide-lang'); if (saved === 'zh' || saved === 'en') lang = saved; else if ((navigator.language || '').toLowerCase().indexOf('zh') === 0) lang = 'zh'; } catch (e) {}
+  if (location.hash === '#zh') lang = 'zh'; if (location.hash === '#en') lang = 'en';
+  tButtons.forEach(function (b) { b.addEventListener('click', function () { term = b.dataset.t; render(); }); });
+  lButtons.forEach(function (b) { b.addEventListener('click', function () { lang = b.dataset.lang; try { localStorage.setItem('mel-guide-lang', lang); } catch (e) {} render(); }); });
+  render();
+})();
+</script>
+</body>
+</html>
